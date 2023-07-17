@@ -98,13 +98,21 @@ data_type list_pop_front(List *l){
     if(l->head == NULL)
 	    exit(printf("Error: list is empty!\n"));
 
-    Node *aux = l->head;
+    Element *aux = l->head;
     data_type value = aux->value;
+
     l->head = aux->next;
-    node_destroy(aux);
+    if(l->head != NULL)
+    	l->head->prev = NULL;
+
+    element_destroy(aux);
     l->size--;
+
+    if(l->size <= 1)
+    	l->last = l->head;
 
     return value;
 }
+
 
 
